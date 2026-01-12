@@ -4,7 +4,6 @@ Shift Builder Program
 A program to automate shift building by assigning employees to shifts based on their availability and department capabilities.
 """
 
-from datetime import datetime, timedelta
 from typing import List, Dict, Set
 import json
 
@@ -120,27 +119,25 @@ class ShiftBuilder:
             emp.employee_id: {day: 0 for day in range(7)} for emp in self.employees
         }
         
-        # Sort shifts to prioritize harder-to-fill shifts (fewer eligible employees)
-        def count_eligible_employees(shift: Shift) -> int:
-            count = 0
+        # Pre-compute eligible employees for each shift to optimize sorting
+        shift_eligible_map: Dict[Shift, List[Employee]] = {}
+        for shift in self.shifts:
+            eligible = []
             for emp in self.employees:
                 if emp.is_available(shift.day, shift.time_slot) and \
                    emp.can_work_in_department(shift.department):
-                    count += 1
-            return count
+                    eligible.append(emp)
+            shift_eligible_map[shift] = eligible
         
-        sorted_shifts = sorted(self.shifts, key=count_eligible_employees)
+        # Sort shifts to prioritize harder-to-fill shifts (fewer eligible employees)
+        sorted_shifts = sorted(self.shifts, key=lambda s: len(shift_eligible_map[s]))
         
         for shift in sorted_shifts:
             if shift.is_assigned():
                 continue
             
-            # Find eligible employees
-            eligible_employees = []
-            for emp in self.employees:
-                if emp.is_available(shift.day, shift.time_slot) and \
-                   emp.can_work_in_department(shift.department):
-                    eligible_employees.append(emp)
+            # Get pre-computed eligible employees
+            eligible_employees = shift_eligible_map[shift]
             
             if not eligible_employees:
                 continue
