@@ -71,7 +71,10 @@ def main():
     print(f"Total shifts: {total_shifts}")
     print(f"Assigned shifts: {assigned_shifts}")
     print(f"Unassigned shifts: {unassigned_shifts}")
-    print(f"Assignment rate: {(assigned_shifts/total_shifts*100):.1f}%")
+    if total_shifts > 0:
+        print(f"Assignment rate: {(assigned_shifts/total_shifts*100):.1f}%")
+    else:
+        print("Assignment rate: N/A (no shifts generated)")
     print("="*80 + "\n")
     
     # Export to JSON
