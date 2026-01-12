@@ -1,0 +1,49 @@
+{
+  "employees": [
+    {
+      "name": "Alice Smith",
+      "employee_id": "E001",
+      "departments": ["Sales", "Customer Service"],
+      "availability": {
+        "0": ["Morning", "Afternoon"],
+        "1": ["Morning"],
+        "2": ["Evening"],
+        "4": ["Morning"]
+      }
+    },
+    {
+      "name": "Bob Johnson",
+      "employee_id": "E002",
+      "departments": ["Sales", "Inventory"],
+      "availability": {
+        "0": ["Afternoon"],
+        "1": ["Morning", "Evening"],
+        "3": ["Morning"],
+        "4": ["Afternoon"]
+      }
+    },
+    {
+      "name": "Carol Williams",
+      "employee_id": "E003",
+      "departments": ["Customer Service"],
+      "availability": {
+        "0": ["Morning"],
+        "2": ["Morning", "Afternoon"],
+        "3": ["Evening"],
+        "5": ["Morning"]
+      }
+    },
+    {
+      "name": "David Brown",
+      "employee_id": "E004",
+      "departments": ["Inventory", "Sales"],
+      "availability": {
+        "1": ["Afternoon"],
+        "2": ["Morning", "Evening"],
+        "3": ["Afternoon"],
+        "4": ["Morning", "Afternoon"],
+        "6": ["Morning"]
+      }
+    }
+  ]
+}
